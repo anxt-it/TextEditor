@@ -11,10 +11,10 @@ class NewFileMenu(ctk.CTkFrame):
         super().__init__(parent)
         self.controller = controller
 
-        self.create_widgets()
-        self.create_layout()
+        self.create_widgets_layout()
 
-    def create_widgets(self):
+
+    def create_widgets_layout(self):
         from views.main_menu import MainMenu
 
         self.menu_label = ctk.CTkLabel(self, text="Text Editor", font=self.controller.fonts['heading_one'])
@@ -22,16 +22,30 @@ class NewFileMenu(ctk.CTkFrame):
 
         self.menu_btns_frame = ctk.CTkFrame(self)
 
-        self.timed_btn = ctk.CTkButton(self.menu_btns_frame, text="timed writing", font=self.controller.fonts['big_button'], command=self.open_timer, anchor='w')
-        self.daily_btn = ctk.CTkButton(self.menu_btns_frame, text='daily pages', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Editor, mode='daily', title=datetime.date.today().isoformat()), anchor='w')
-        self.btn_prompt = ctk.CTkButton(self.menu_btns_frame, text='use prompt', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Prompts), anchor='w')
-        self.scene_btn = ctk.CTkButton(self.menu_btns_frame, text='scene', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Editor, mode="scene"), anchor='w')
-        self.memory_btn = ctk.CTkButton(self.menu_btns_frame, text='memory', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Editor, mode="memory"), anchor='w')
-        self.book_btn = ctk.CTkButton(self.menu_btns_frame, text='something from a book', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Editor, mode="book"), anchor='w')
-        self.movie_btn = ctk.CTkButton(self.menu_btns_frame, text='something from a movie', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Editor, mode="movie"), anchor='w')
-        self.other_btn = ctk.CTkButton(self.menu_btns_frame, text='other', font=self.controller.fonts['big_button'], command=lambda: self.controller.show_frame(Editor, mode="other"), anchor='w')
+        options = [
+            ("timed writing", self.open_timer),
+            ("daily pages", lambda: self.controller.show_frame(Editor, mode="daily", title=datetime.date.today().isoformat())),
+            ("use prompt", lambda: self.controller.show_frame(Prompts)),
+            ("scene", lambda: self.controller.show_frame(Editor, mode="scene")),
+            ("memory", lambda: self.controller.show_frame(Editor, mode="memory")),
+            ("something from a book", lambda: self.controller.show_frame(Editor, mode="book")),
+            ("something from a movie", lambda: self.controller.show_frame(Editor, mode="movie")),
+            ("other", lambda: self.controller.show_frame(Editor, mode="other"))
+        ]
 
-    def create_layout(self):
+
+        for i, (text, command) in enumerate(options):
+
+            btn = ctk.CTkButton(
+                self.menu_btns_frame,
+                text= text,
+                font=self.controller.fonts['big_button'],
+                command=command,
+                anchor='w'
+            )
+
+            btn.grid(row=i, column=0, padx=100, sticky="nw")
+
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=2)
@@ -41,15 +55,9 @@ class NewFileMenu(ctk.CTkFrame):
         self.menu_label.grid(row=0, column=0, padx=100, pady=20, sticky="sw")
         self.menu_btns_frame.grid(row=1, column=0, sticky="nsew")
 
-        self.timed_btn.grid(row=0, column=0, padx=100, sticky="nw")
-        self.daily_btn.grid(row=1, column=0, padx=100,  sticky='nw')
-        self.btn_prompt.grid(row=2, column=0, padx=100, sticky='nw')
-        self.scene_btn.grid(row=3, column=0, padx=100, sticky='nw')
-        self.memory_btn.grid(row=4, column=0, padx=100,  sticky='nw')
-        self.book_btn.grid(row=5, column=0, padx=100, sticky='nw')
-        self.movie_btn.grid(row=6, column=0, padx=100,  sticky='nw')
-        self.other_btn.grid(row=7,column=0, padx=100,sticky='nw')
 
+
+# everything down here i hate
     def open_timer(self):
         top = ctk.CTkToplevel(self)
         top.title("timer")

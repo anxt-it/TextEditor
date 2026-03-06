@@ -1,6 +1,7 @@
 
 import customtkinter as ctk
 from views.new_file_menu import NewFileMenu
+from services.file_manager import open_file
 
 
 class MainMenu(ctk.CTkFrame):
@@ -16,12 +17,23 @@ class MainMenu(ctk.CTkFrame):
 
         self.btns_frame = ctk.CTkFrame(self)
 
-        self.new_file_menu_btn = ctk.CTkButton(self.btns_frame, text="Write Something New", font=self.controller.fonts["big_button"], command=lambda: self.controller.show_frame(NewFileMenu),anchor='w')
-        self.open_file_btn = ctk.CTkButton(self.btns_frame, text="Continue Something Old", font=self.controller.fonts["big_button"], anchor='w' """command=lambda: self.controller.show_frame(Editor, 'open file'),""")
-        self.settings_btn = ctk.CTkButton(self.btns_frame, text="Open Settings", font=self.controller.fonts["big_button"], anchor='w')
+        options = [
+            ("Write Something New", lambda: self.controller.show_frame(NewFileMenu)),
+            ("Continue Something Old", open_file),
+            ("Open Settings", None),
+            ("Exit", exit)
+        ]
 
-        self.exit_btn = ctk.CTkButton(self, text='exit', font=self.controller.fonts["small_button"], command=exit , anchor='e')
+        for i, (text, command) in enumerate(options):
+            btn = ctk.CTkButton(
+                self.btns_frame,
+                text=text,
+                font=self.controller.fonts["big_button"],
+                command=command,
+                anchor='w'
+            )
 
+            btn.grid(row=i, column=0, padx=100, sticky='nw')
 
     def create_layout(self):
         self.columnconfigure(0, weight=1)
@@ -30,9 +42,3 @@ class MainMenu(ctk.CTkFrame):
 
         self.menu_label.grid(row=0, column=0, padx=100, pady=20, sticky="sw")
         self.btns_frame.grid(row=1, column=0, sticky='nsew')
-
-        self.new_file_menu_btn.grid(row=0, column=0, padx=100, sticky='nw')
-        self.open_file_btn.grid(row=1, column=0, padx=100, sticky='nw')
-        self.settings_btn.grid(row=2, column=0, padx=100, sticky='nw')
-
-        self.exit_btn.grid(row=0, column=0, pady=10, sticky='ne')

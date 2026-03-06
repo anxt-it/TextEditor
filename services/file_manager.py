@@ -70,3 +70,8 @@ def save_file(self):
         save_without_name("Something From a Movie")
     elif self.mode == "other":
         save_without_name("Other")
+
+
+
+def open_file():
+    print("this should open a file")

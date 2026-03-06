@@ -23,13 +23,13 @@ class NewFileMenu(ctk.CTkFrame):
         self.menu_btns_frame = ctk.CTkFrame(self)
 
         options = [
-            ("daily pages", lambda: self.controller.show_frame(Editor, mode="daily", title=datetime.date.today().isoformat())),
+            ("daily pages", lambda: self.controller.show_frame(Editor, title=datetime.date.today().isoformat())),
             ("use prompt", lambda: self.controller.show_frame(Prompts)),
-            ("scene", lambda: self.controller.show_frame(Editor, mode="scene")),
-            ("memory", lambda: self.controller.show_frame(Editor, mode="memory")),
-            ("something from a book", lambda: self.controller.show_frame(Editor, mode="book")),
-            ("something from a movie", lambda: self.controller.show_frame(Editor, mode="movie")),
-            ("other", lambda: self.controller.show_frame(Editor, mode="other"))
+            ("scene", lambda: self.controller.show_frame(Editor)),
+            ("memory", lambda: self.controller.show_frame(Editor)),
+            ("something from a book", lambda: self.controller.show_frame(Editor)),
+            ("something from a movie", lambda: self.controller.show_frame(Editor)),
+            ("other", lambda: self.controller.show_frame(Editor))
         ]
 
 
@@ -43,7 +43,7 @@ class NewFileMenu(ctk.CTkFrame):
                 anchor='w'
             )
 
-            btn.grid(row=i, column=0, padx=100, sticky="nw")
+            btn.grid(row=i, column=0, padx=100, sticky="nw")\
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)

@@ -42,25 +42,17 @@ class Editor(ctk.CTkFrame):
         self.textbox.delete("1.0", ctk.END)
         self.title_entry.delete(0, ctk.END)
         self.title_entry.configure(placeholder_text_color='#dbdbd9', placeholder_text="New Page")
-        self.file_path = None
+        self.file_path = None # do i need this?
 
 
-    def update_content(self, mode='other', title=None, folder=None, duration=None):
-            self.reset_editor()
-            self.mode = mode
-            self.folder = folder # not sure i ever use that
-            self.title = title
+    def update_content(self, title=None, file_text=None):
+        self.reset_editor()
 
-            if mode == "daily":
-                self.title_entry.configure(placeholder_text=title, placeholder_text_color="gray14")
-            elif mode == "prompt":
-                self.title_entry.configure(placeholder_text=title, placeholder_text_color="gray14")
-            elif mode == "file" and file_path:  # not sure what and file_path means
-                # self.open_file()
-                pass
+        if title:
+            self.title_entry.configure(placeholder_text_color='gray14', placeholder_text=title)
 
+        if file_text:
+            self.textbox.insert("1.0", file_text)
 
-            else: # the other
-                self.title_entry.configure(placeholder_text="New Page")
 
 

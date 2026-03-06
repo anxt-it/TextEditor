@@ -12,6 +12,7 @@ class Prompts(ctk.CTkFrame):
         self.prompts = self.load_prompts()
         self.layout()
 
+
     def load_prompts(self):
         prompts_file = 'prompts.txt'
 
@@ -22,6 +23,7 @@ class Prompts(ctk.CTkFrame):
         return []
 
     def layout(self):
+        from views.new_file_menu import NewFileMenu
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=2)
@@ -42,7 +44,7 @@ class Prompts(ctk.CTkFrame):
                     self.prompts_list_frame,
                     text=prompt,
                     font=('SF Display', 16),
-                    command=lambda p=prompt: self.controller.show_frame(Editor, mode="prompt", title=p),
+                    command=lambda p=prompt: self.controller.show_frame(Editor, title=p),
                     anchor='w')
                 self.prompt_btn.grid(row=i, column=0, padx=100, pady=5, sticky='nw')
 

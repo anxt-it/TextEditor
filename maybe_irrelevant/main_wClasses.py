@@ -277,7 +277,7 @@ class Prompts(ctk.CTkFrame):
         self.layout()
 
     def load_prompts(self):
-        prompts_file = 'prompts.txt'
+        prompts_file = '../prompts.txt'
 
         if os.path.exists(prompts_file):
             with open(prompts_file, "r") as f:

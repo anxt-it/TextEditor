@@ -1,5 +1,5 @@
 import os.path
-
+from tkinter import filedialog
 
 def save_file(self):
     # if it's an opened file, just overwrite
@@ -75,3 +75,9 @@ def save_file(self):
 
 def open_file():
     print("this should open a file")
+
+    text_file = filedialog.askopenfilename(title="open file", defaultextension='.txt', filetypes=(("Text Files", "*.txt"), ("All Files", "*.*"))) # initialdir="/Users/anatorevi/PycharmProjects/TextEditor/TestFolder",
+
+
+
+

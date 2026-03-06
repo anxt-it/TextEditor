@@ -20,7 +20,7 @@ class MainMenu(ctk.CTkFrame):
         options = [
             ("Write Something New", lambda: self.controller.show_frame(NewFileMenu)),
             ("Continue Something Old", open_file),
-            ("Open Settings", None),
+            ("Open Settings", None), # self.controller.show_frame(Settings)
             ("Exit", exit)
         ]
 

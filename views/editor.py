@@ -60,25 +60,6 @@ class Editor(ctk.CTkFrame):
             elif mode == "file" and file_path:  # not sure what and file_path means
                 # self.open_file()
                 pass
-            elif mode == "timed":
-                # create timer frame
-                timer_frame = ctk.CTkFrame(self, fg_color='orange', width=200, height=70)
-                timer_frame.grid(row=0, column=0, padx=100, pady=50, sticky='nw')
-
-
-                label = ctk.CTkLabel(timer_frame, text=" ")
-                label.pack()
-
-                hour = duration // 3600
-                minute = (duration - hour*3600) // 60
-                second = (duration - hour*3600 - minute*60)
-                while duration > -1:
-                    label.configure(text=f"{hour}:{minute}:{second}")
-                    time.sleep(1)
-
-                    if duration == 0:
-                        messagebox.showinfo("Time Countdown", "Times Up")
-                    duration -= 1
 
 
             else: # the other

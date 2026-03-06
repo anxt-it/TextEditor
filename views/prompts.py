@@ -38,7 +38,12 @@ class Prompts(ctk.CTkFrame):
 
         else:
             for i, prompt in enumerate(self.prompts):
-                self.prompt_btn = ctk.CTkButton(self.prompts_list_frame, text=prompt, font=('SF Display', 16), command=lambda p=prompt: self.controller.show_frame(Editor, mode="prompt", title=p), anchor='w')
+                self.prompt_btn = ctk.CTkButton(
+                    self.prompts_list_frame,
+                    text=prompt,
+                    font=('SF Display', 16),
+                    command=lambda p=prompt: self.controller.show_frame(Editor, mode="prompt", title=p),
+                    anchor='w')
                 self.prompt_btn.grid(row=i, column=0, padx=100, pady=5, sticky='nw')
 
         self.back_button = ctk.CTkButton(self, text='back', font=self.controller.fonts["small_button"], command=lambda: self.controller.show_frame(NewFileMenu), anchor='e')

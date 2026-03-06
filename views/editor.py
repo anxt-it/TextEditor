@@ -1,8 +1,6 @@
 
 import customtkinter as ctk
 import os.path
-from tkinter import filedialog, StringVar, messagebox
-import time
 from services.file_manager import save_file
 
 class Editor(ctk.CTkFrame):

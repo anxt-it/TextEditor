@@ -42,3 +42,5 @@ class MainMenu(ctk.CTkFrame):
 
         self.menu_label.grid(row=0, column=0, padx=100, pady=20, sticky="sw")
         self.btns_frame.grid(row=1, column=0, sticky='nsew')
+
+        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

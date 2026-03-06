@@ -1,0 +1,15 @@
+# Python junk
+__pycache__/
+*.pyc
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# IDE and Secrets
+.idea/
+.env
+
+# My specific folders
+maybe_irrelevant/

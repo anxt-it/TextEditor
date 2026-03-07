@@ -18,7 +18,7 @@ class NewFileMenu(ctk.CTkFrame):
         from views.main_menu import MainMenu
 
         self.menu_label = ctk.CTkLabel(self, text="Text Editor", font=self.controller.fonts['heading_one'])
-        self.back_button = ctk.CTkButton(self, text='back', font=self.controller.fonts["small_button"], command=lambda: self.controller.show_frame(MainMenu), anchor='e')
+        self.home_button = ctk.CTkButton(self, text='home', font=self.controller.fonts["small_button"], command=lambda: self.controller.show_frame(MainMenu), anchor='e')
 
         self.menu_btns_frame = ctk.CTkFrame(self)
 
@@ -49,7 +49,7 @@ class NewFileMenu(ctk.CTkFrame):
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=2)
 
-        self.back_button.grid(row=0, column=0, pady=10, sticky='ne')
+        self.home_button.grid(row=0, column=0, pady=10, sticky='ne')
 
         self.menu_label.grid(row=0, column=0, padx=100, pady=20, sticky="sw")
         self.menu_btns_frame.grid(row=1, column=0, sticky="nsew")

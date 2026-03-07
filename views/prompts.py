@@ -48,5 +48,5 @@ class Prompts(ctk.CTkFrame):
                     anchor='w')
                 self.prompt_btn.grid(row=i, column=0, padx=100, pady=5, sticky='nw')
 
-        self.back_button = ctk.CTkButton(self, text='back', font=self.controller.fonts["small_button"], command=lambda: self.controller.show_frame(NewFileMenu), anchor='e')
-        self.back_button.grid(row=0, column=0, pady=10, sticky='ne')
+        self.home_button = ctk.CTkButton(self, text='home', font=self.controller.fonts["small_button"], command=lambda: self.controller.show_frame(NewFileMenu), anchor='e')
+        self.home_button.grid(row=0, column=0, pady=10, sticky='ne')

@@ -1,7 +1,6 @@
 
 import customtkinter as ctk
 import os.path
-from views.main_menu import MainMenu
 from services.file_manager import save_file
 
 class Editor(ctk.CTkFrame):
@@ -13,6 +12,7 @@ class Editor(ctk.CTkFrame):
         self.create_layout()
 
     def create_widgets(self):
+        from views.main_menu import MainMenu
 
         self.title_entry = ctk.CTkEntry(self, border_color='white',
                                         fg_color='transparent',

@@ -2,7 +2,7 @@
 import customtkinter as ctk
 from views.new_file_menu import NewFileMenu
 from services.file_manager import open_file
-
+from views.editor import Editor
 
 class MainMenu(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -19,8 +19,8 @@ class MainMenu(ctk.CTkFrame):
 
         options = [
             ("Write Something New", lambda: self.controller.show_frame(NewFileMenu)),
-            ("Continue Something Old", open_file),
-            ("Open Settings", None), # self.controller.show_frame(Settings)
+            ("Continue Something Old", self.continue_old),
+            ("Open Settings", None),
             ("Exit", exit)
         ]
 
@@ -42,5 +42,13 @@ class MainMenu(ctk.CTkFrame):
 
         self.menu_label.grid(row=0, column=0, padx=100, pady=20, sticky="sw")
         self.btns_frame.grid(row=1, column=0, sticky='nsew')
+
+
+    def continue_old(self):
+        title, file_text = open_file()
+        if title and file_text:
+            self.controller.show_frame(Editor, title=title, file_text=file_text)
+        else:
+            return
 
 

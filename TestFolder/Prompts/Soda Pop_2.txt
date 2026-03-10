@@ -1,3 +1,0 @@
-now if i try and open the prompt again 
-it should clear everything and treat it as a new file 
-cool this is working 

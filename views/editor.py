@@ -1,7 +1,6 @@
 
 import customtkinter as ctk
-import os.path
-from services.file_manager import save_file
+
 
 class Editor(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -10,6 +9,7 @@ class Editor(ctk.CTkFrame):
 
         self.create_widgets()
         self.create_layout()
+
 
     def create_widgets(self):
         from views.main_menu import MainMenu
@@ -27,7 +27,7 @@ class Editor(ctk.CTkFrame):
                                          anchor='e')
         self.save_button = ctk.CTkButton(self, text='save',
                                          font=self.controller.fonts["small_button"],
-                                         command=save_file,
+                                         # command=save_file,
                                          anchor='e')
 
         self.status_bar = ctk.CTkLabel(self, text='Ready   ',
@@ -37,6 +37,13 @@ class Editor(ctk.CTkFrame):
                                             font=('SF Display', 12),
                                             anchor='e')
 
+
+        switch_var = ctk.StringVar(value='off')
+        self.direction_toggle = ctk.CTkSwitch(self, onvalue='RTL', offvalue='LTR',
+                                              command=self.switch_event,
+                                              variable=switch_var,
+                                              text='RTL') # and it would be just on and off
+
     def create_layout(self):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
@@ -44,11 +51,14 @@ class Editor(ctk.CTkFrame):
 
         self.title_entry.grid(row=0, column=0, padx=100, sticky='swe')
         self.textbox.grid(pady=10, padx=100, sticky='nsew')
+
         self.home_button.grid(row=0, column=0, pady=10, sticky='ne')
         self.save_button.grid(row=0, column=0, pady=40, sticky='ne')
 
         self.status_bar.grid(row=1, column=0, sticky='se')
         self.filepath_status.grid(row=1, column=0, sticky='sw')
+
+        self.direction_toggle.grid(row=0, column=0, pady=70, sticky='ne')
 
 
     def reset_editor(self):
@@ -68,4 +78,5 @@ class Editor(ctk.CTkFrame):
             self.textbox.insert("1.0", file_text)
 
 
-
+    def switch_event(self):
+        self.textbox.configure(self, justify="right")

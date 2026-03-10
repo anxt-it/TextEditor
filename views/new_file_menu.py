@@ -1,6 +1,5 @@
 
 import customtkinter as ctk
-from tkinter import filedialog, StringVar, messagebox
 import datetime
 from views.editor import Editor
 from views.prompts import Prompts

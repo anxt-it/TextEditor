@@ -34,7 +34,6 @@ class TextEditor(ctk.CTk):
             frame.grid(row=0, column=0, sticky='nsew')
 
 
-        # run
         self.show_frame(MainMenu)
         self.mainloop()
 

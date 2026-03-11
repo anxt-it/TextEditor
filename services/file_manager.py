@@ -7,7 +7,6 @@ def open_file():
     file_path = filedialog.askopenfilename(title="open file",
                                       defaultextension='.txt',
                                       filetypes=(("Text Files", "*.txt"), ("All Files", "*.*"))
-                                      # initialdir="/Users/anatorevi/PycharmProjects/TextEditor/TestFolder",
                                       )
 
     try:

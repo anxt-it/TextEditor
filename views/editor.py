@@ -1,5 +1,6 @@
 
 import customtkinter as ctk
+from bidi.algorithm import get_display
 
 
 class Editor(ctk.CTkFrame):
@@ -9,6 +10,7 @@ class Editor(ctk.CTkFrame):
 
         self.create_widgets()
         self.create_layout()
+
 
 
     def create_widgets(self):
@@ -38,11 +40,13 @@ class Editor(ctk.CTkFrame):
                                             anchor='e')
 
 
-        switch_var = ctk.StringVar(value='off')
-        self.direction_toggle = ctk.CTkSwitch(self, onvalue='RTL', offvalue='LTR',
-                                              command=self.switch_event,
-                                              variable=switch_var,
-                                              text='RTL') # and it would be just on and off
+
+        self.switch_var = ctk.StringVar(value='off')
+        self.direction_toggle = ctk.CTkSwitch(self, onvalue='on', offvalue='off',
+                                              command=self.RTL_switch,
+                                              variable=self.switch_var,
+                                              text='RTL')
+        self.textbox.bind("<KeyRelease>", self.RTL_switch)
 
     def create_layout(self):
         self.columnconfigure(0, weight=1)
@@ -65,7 +69,7 @@ class Editor(ctk.CTkFrame):
         self.textbox.delete("1.0", ctk.END)
         self.title_entry.delete(0, ctk.END)
         self.title_entry.configure(placeholder_text_color='#dbdbd9', placeholder_text="New Page")
-        self.file_path = None # do i need this?
+        self.direction_toggle.deselect()
 
 
     def update_content(self, title=None, file_text=None):
@@ -78,5 +82,15 @@ class Editor(ctk.CTkFrame):
             self.textbox.insert("1.0", file_text)
 
 
-    def switch_event(self):
-        self.textbox.configure(self, justify="right")
+    def RTL_switch(self, event=None):
+        self.textbox.tag_config("right", justify='right')
+
+        if self.switch_var.get() == "on":
+
+            if self.textbox.get("1.0", "end-1c") == "":
+                self.textbox.insert("1.0", "\u200F") # RTL mark
+
+            self.textbox.tag_add("right", "1.0", "end")
+
+        else:
+            self.textbox.tag_remove("right", "1.0", "end")

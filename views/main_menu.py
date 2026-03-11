@@ -45,10 +45,12 @@ class MainMenu(ctk.CTkFrame):
 
 
     def continue_old(self):
-        title, file_text = open_file()
+        title, file_text, file_path = open_file()
         if title and file_text:
-            self.controller.show_frame(Editor, title=title, file_text=file_text)
+            self.controller.show_frame(Editor, title=title, file_text=file_text, file_path=file_path)
         else:
             return
+
+
 
 

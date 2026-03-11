@@ -1,7 +1,6 @@
 
 import customtkinter as ctk
-from bidi.algorithm import get_display
-
+from services.file_manager import save_as_file, save_file
 
 class Editor(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -11,6 +10,7 @@ class Editor(ctk.CTkFrame):
         self.create_widgets()
         self.create_layout()
 
+        self.current_file_path = None
 
 
     def create_widgets(self):
@@ -29,8 +29,14 @@ class Editor(ctk.CTkFrame):
                                          anchor='e')
         self.save_button = ctk.CTkButton(self, text='save',
                                          font=self.controller.fonts["small_button"],
-                                         # command=save_file,
+                                         command=self.handle_save,
                                          anchor='e')
+
+        self.save_as_button = ctk.CTkButton(self, text='save as',
+                                         font=self.controller.fonts["small_button"],
+                                         command=self.handle_save_as,
+                                         anchor='e')
+
 
         self.status_bar = ctk.CTkLabel(self, text='Ready   ',
                                        font=('SF Display', 12),
@@ -48,6 +54,8 @@ class Editor(ctk.CTkFrame):
                                               text='RTL')
         self.textbox.bind("<KeyRelease>", self.RTL_switch)
 
+
+
     def create_layout(self):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
@@ -58,11 +66,38 @@ class Editor(ctk.CTkFrame):
 
         self.home_button.grid(row=0, column=0, pady=10, sticky='ne')
         self.save_button.grid(row=0, column=0, pady=40, sticky='ne')
+        self.save_as_button.grid(row=0, column=0, pady=70, sticky='ne')
+
 
         self.status_bar.grid(row=1, column=0, sticky='se')
         self.filepath_status.grid(row=1, column=0, sticky='sw')
 
-        self.direction_toggle.grid(row=0, column=0, pady=70, sticky='ne')
+        self.direction_toggle.grid(row=0, column=0, pady=100, sticky='ne')
+
+
+
+    def handle_save(self):
+        text_to_save = self.textbox.get("1.0", "end-1c")
+
+        if self.current_file_path:
+            save_file(text_to_save, self.current_file_path)
+            self.status_bar.configure(text="Saved   ")
+
+        else:
+            self.handle_save_as()
+
+
+
+    def handle_save_as(self):
+        text_to_save = self.textbox.get("1.0", "end-1c")
+        saved_path = save_as_file(text_to_save)
+
+        if saved_path:
+            self.current_file_path = saved_path
+            self.status_bar.configure(text='Saved   ')
+            self.filepath_status.configure(text=saved_path)
+
+
 
 
     def reset_editor(self):
@@ -72,14 +107,19 @@ class Editor(ctk.CTkFrame):
         self.direction_toggle.deselect()
 
 
-    def update_content(self, title=None, file_text=None):
+
+    def update_content(self, title=None, file_text=None, file_path=None):
         self.reset_editor()
+
+        self.current_file_path = file_path
+        self.filepath_status.configure(text=file_path)
 
         if title:
             self.title_entry.configure(placeholder_text_color='gray14', placeholder_text=title)
 
         if file_text:
             self.textbox.insert("1.0", file_text)
+
 
 
     def RTL_switch(self, event=None):
@@ -94,3 +134,4 @@ class Editor(ctk.CTkFrame):
 
         else:
             self.textbox.tag_remove("right", "1.0", "end")
+
